@@ -7,5 +7,6 @@ if [ ! -d "$HOME/.yadr" ]; then
     [ "$1" == "ask" ] && export ASK="true"
     rake install
 else
-    echo "YADR is already installed"
+    echo "YADR is already installed. Updating."
+    git pull
 fi

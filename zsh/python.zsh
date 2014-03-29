@@ -27,7 +27,7 @@ alias rshell="ript && python local_manage.py shell"
 alias rmigrate="ript && python local_manage.py migrate"
 alias maus="cd $HOME/Development/reporting && workon maus"
 alias lrun="python local_manage.py runserver"
-alias ltest="python local_manage.py test"
+alias ltest="python local_manage.py test --settings=tests.settings"
 alias lshell="python local_manage.py shell"
 alias lmigrate="python local_manage.py migrate"
 
