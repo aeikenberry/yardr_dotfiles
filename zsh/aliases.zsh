@@ -156,6 +156,8 @@ alias sp='sprintly'
 alias spb="git checkout -b \`sp | tail -2 | grep '#' | sed 's/^ //' | sed 's/[^A-Za-z0-9 ]//g' | sed 's/ /-/g' | cut -d"-" -f1,2,3,4,5\`"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=/Applications/Android\ Studio.app/sdk/tools:$PATH
+export PATH=/Applications/Android\ Studio.app/sdk/platform-tools:$PATH
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
