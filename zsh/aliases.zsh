@@ -165,3 +165,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 alias dev='cd ~/code'
 alias slime='subl'
 export EDITOR='subl -w'
+
+### Exa additions
+PATH=$PATH:~/code/exa/target/exa
+alias ls='exa'

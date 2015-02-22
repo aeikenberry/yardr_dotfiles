@@ -29,6 +29,10 @@ task :install => [:submodule_init, :submodules] do
 
   install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
 
+  install_rust if RUBY_PLATFORM.downcase.include?("darwin")
+
+  install_exa if RUBY_PLATFORM.downcase.include?("darwin")
+
   install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
 
   run_bundle_config
@@ -171,8 +175,29 @@ def install_homebrew
   puts "======================================================"
   puts "Installing Homebrew packages...There may be some warnings."
   puts "======================================================"
-  run %{brew install zsh ctags git hub tmux fasd reattach-to-user-namespace the_silver_searcher}
+  run %{brew install zsh ctags git hub tmux fasd reattach-to-user-namespace the_silver_searcher libgit2}
   run %{brew install macvim --custom-icons --override-system-vim --with-lua --with-luajit}
+  puts
+  puts
+end
+
+def install_rust
+  puts
+  puts "======================================================"
+  puts "Installing Rust."
+  puts "======================================================"
+  run %{curl -s https://static.rust-lang.org/rustup.sh | sudo sh}
+  puts
+  puts
+end
+
+def install_exa
+  puts
+  puts "======================================================"
+  puts "Installing Exa instead of ls"
+  puts "======================================================"
+  run %{git clone https://github.com/ogham/exa.git ~/code/}
+  run %{cd ~/code/exa/ && cargo build}
   puts
   puts
 end
