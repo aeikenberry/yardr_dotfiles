@@ -196,7 +196,7 @@ def install_exa
   puts "======================================================"
   puts "Installing Exa instead of ls"
   puts "======================================================"
-  run %{git clone https://github.com/ogham/exa.git ~/code/}
+  run %{git clone https://github.com/ogham/exa.git ~/code/exa/}
   run %{cd ~/code/exa/ && cargo build}
   puts
   puts
