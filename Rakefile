@@ -27,7 +27,7 @@ task :install => [:submodule_init, :submodules] do
 
   Rake::Task["install_prezto"].execute
 
-  install_fonts if RUBY_PLATFORM.downcase.include?("darwin")
+  install_fonts
 
   install_rust if RUBY_PLATFORM.downcase.include?("darwin")
 
@@ -98,7 +98,7 @@ desc "Runs Vundle installer in a clean vim environment"
 task :install_vundle do
   puts "======================================================"
   puts "Installing and updating vundles."
-  puts "The installer will now proceed to run BundleInstall."
+  puts "The installer will now proceed to run PluginInstall to install vundles."
   puts "======================================================"
 
   puts ""
@@ -161,7 +161,7 @@ def install_homebrew
     puts "Installing Homebrew, the OSX package manager...If it's"
     puts "already installed, this will do nothing."
     puts "======================================================"
-    run %{ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"}
+    run %{ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"}
   end
 
   puts
@@ -206,7 +206,8 @@ def install_fonts
   puts "======================================================"
   puts "Installing patched fonts for Powerline/Lightline."
   puts "======================================================"
-  run %{ cp -f $HOME/.yadr/fonts/* $HOME/Library/Fonts }
+  run %{ cp -f $HOME/.yadr/fonts/* $HOME/Library/Fonts } if RUBY_PLATFORM.downcase.include?("darwin")
+  run %{ mkdir -p ~/.fonts && cp ~/.yadr/fonts/* ~/.fonts && fc-cache -vf ~/.fonts } if RUBY_PLATFORM.downcase.include?("linux")
   puts
 end
 
@@ -232,6 +233,9 @@ def install_term_theme
   # Ask the user which theme he wants to install
   message = "Which theme would you like to apply to your iTerm2 profile?"
   color_scheme = ask message, iTerm_available_themes
+
+  return if color_scheme == 'None'
+
   color_scheme_file = File.join('iTerm2', "#{color_scheme}.itermcolors")
 
   # Ask the user on which profile he wants to install the theme
@@ -248,7 +252,7 @@ def install_term_theme
 end
 
 def iTerm_available_themes
-   Dir['iTerm2/*.itermcolors'].map { |value| File.basename(value, '.itermcolors')}
+   Dir['iTerm2/*.itermcolors'].map { |value| File.basename(value, '.itermcolors')} << 'None'
 end
 
 def iTerm_profile_list
@@ -279,12 +283,10 @@ def install_prezto
   puts
   puts "Installing Prezto (ZSH Enhancements)..."
 
-  unless File.exists?(File.join(ENV['ZDOTDIR'] || ENV['HOME'], ".zprezto"))
-    run %{ ln -nfs "$HOME/.yadr/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
+  run %{ ln -nfs "$HOME/.yadr/zsh/prezto" "${ZDOTDIR:-$HOME}/.zprezto" }
 
-    # The prezto runcoms are only going to be installed if zprezto has never been installed
-    file_operation(Dir.glob('zsh/prezto/runcoms/z*'), :copy)
-  end
+  # The prezto runcoms are only going to be installed if zprezto has never been installed
+  file_operation(Dir.glob('zsh/prezto/runcoms/z*'), :copy)
 
   puts
   puts "Overriding prezto ~/.zpreztorc with YADR's zpreztorc to enable additional modules..."
@@ -373,6 +375,7 @@ def apply_theme_to_iterm_profile_idx(index, color_scheme_path)
   values.flatten.each { |entry| run %{ /usr/libexec/PlistBuddy -c "Delete :'New Bookmarks':#{index}:'#{entry}'" ~/Library/Preferences/com.googlecode.iterm2.plist } }
 
   run %{ /usr/libexec/PlistBuddy -c "Merge '#{color_scheme_path}' :'New Bookmarks':#{index}" ~/Library/Preferences/com.googlecode.iterm2.plist }
+  run %{ defaults read com.googlecode.iterm2 }
 end
 
 def success_msg(action)
