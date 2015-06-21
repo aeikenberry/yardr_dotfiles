@@ -188,9 +188,6 @@ alias dev='cd ~/code'
 alias slime='subl'
 export EDITOR='subl -w'
 
-### Exa additions
-alias ls='exa'
-
 alias hpr='hub pull-request'
 alias grb='git recent-branches'
 
