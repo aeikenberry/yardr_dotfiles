@@ -25,9 +25,15 @@ function prompt_kylewest_precmd {
   fi
 
   # Get node information
-  if(( $+functions[node-info])); then
+  if (( $+functions[node-info] )); then
     node-info
   fi
+
+  # Get python information
+  if (( $+functions[python-info] )); then
+    python-info
+  fi
+
 }
 
 function prompt_kylewest_setup {
@@ -43,14 +49,15 @@ function prompt_kylewest_setup {
 
   # editor
   zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary' format "%B%F{green}$>%f%b"
+  zstyle ':prezto:module:editor:info:keymap:primary' format "%B%F{green}$%f%b"
   zstyle ':prezto:module:editor:info:keymap:alternate' format "%B%F{magenta}<#%f%b"
 
   # ruby info (rvm, rbenv)
   zstyle ':prezto:module:ruby:info:version' format '[ %v ]'
 
   # node info
-  zstyle ':prezto:module:ruby:info:version' format '[ %v ]'
+  zstyle ':prezto:module:node:info:version' format 'node:%v'
+  zstyle ':prezto:module:python:info:virtualenv' format '[ %v ] '
 
   # vcs
   zstyle ':prezto:module:git:info:branch' format '%F{yellow}%b%f'
@@ -58,7 +65,7 @@ function prompt_kylewest_setup {
   zstyle ':prezto:module:git:info:keys' format 'prompt' '- %b%D '
 
   # prompts
-  PROMPT='%F{cyan}%c%f ${git_info[prompt]}${editor_info[keymap]} '
+  PROMPT='%F{white}${python_info[virtualenv]}%F{cyan}%c%f ${git_info[prompt]}${editor_info[keymap]} '
   RPROMPT='%F{blue}${node_info[version]}'
 }
 
