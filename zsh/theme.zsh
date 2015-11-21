@@ -1,1 +1,1 @@
-prompt peepcode '>'
+prompt sorin
