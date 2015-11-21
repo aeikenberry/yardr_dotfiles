@@ -56,8 +56,8 @@ function prompt_kylewest_setup {
   zstyle ':prezto:module:ruby:info:version' format '[ %v ]'
 
   # node info
-  zstyle ':prezto:module:node:info:version' format 'node:%v'
-  zstyle ':prezto:module:python:info:virtualenv' format '[ %v ] '
+  zstyle ':prezto:module:node:info:version' format '[node:%v]'
+  zstyle ':prezto:module:python:info:virtualenv' format '[py:%v]'
 
   # vcs
   zstyle ':prezto:module:git:info:branch' format '%F{yellow}%b%f'
@@ -65,8 +65,8 @@ function prompt_kylewest_setup {
   zstyle ':prezto:module:git:info:keys' format 'prompt' '- %b%D '
 
   # prompts
-  PROMPT='%F{white}${python_info[virtualenv]}%F{cyan}%c%f ${git_info[prompt]}${editor_info[keymap]} '
-  RPROMPT='%F{blue}${node_info[version]}'
+  PROMPT='%F{cyan}%c%f ${git_info[prompt]}${editor_info[keymap]} '
+  RPROMPT='%F{206}${python_info[virtualenv]} %F{blue}${node_info[version]}'
 }
 
 prompt_kylewest_setup "$@"
