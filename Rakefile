@@ -30,7 +30,7 @@ task :install => [:submodule_init, :submodules] do
   install_fonts
 
   install_python
-  intall_node
+  install_node
 
   install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
 
