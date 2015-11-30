@@ -30,8 +30,6 @@ task :install => [:submodule_init, :submodules] do
   install_fonts
 
   install_python
-  install_node
-
   install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
 
   run_bundle_config
@@ -189,17 +187,6 @@ def install_python
   puts  "======================================================"
   run %{sudo pip install virtualenvwrapper}
   run %{sudo pip install flake8}
-  puts
-  puts
-end
-
-def install_node
-  puts
-  puts "======================================================"
-  puts "Installing node"
-  puts "======================================================"
-  run %{nvm install 5}
-  run %{nvm alias default node}
   puts
   puts
 end
