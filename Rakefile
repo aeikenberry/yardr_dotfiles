@@ -29,9 +29,8 @@ task :install => [:submodule_init, :submodules] do
 
   install_fonts
 
-  install_rust if RUBY_PLATFORM.downcase.include?("darwin")
-
-  install_exa if RUBY_PLATFORM.downcase.include?("darwin")
+  install_python
+  intall_node
 
   install_term_theme if RUBY_PLATFORM.downcase.include?("darwin")
 
@@ -176,29 +175,31 @@ def install_homebrew
   puts "======================================================"
   puts "Installing Homebrew packages...There may be some warnings."
   puts "======================================================"
+  run %{brew install python nvm}
   run %{brew install zsh ctags git hub tmux fasd reattach-to-user-namespace the_silver_searcher libgit2}
   run %{brew install macvim --custom-icons --override-system-vim --with-lua --with-luajit}
   puts
   puts
 end
 
-def install_rust
+def install_python
   puts
   puts "======================================================"
-  puts "Installing Rust."
-  puts "======================================================"
-  run %{curl -s https://static.rust-lang.org/rustup.sh | sudo sh}
+  puts "Installing python globals"
+  puts  "======================================================"
+  run %{sudo pip install virtualenvwrapper}
+  run %{sudo pip install flake8}
   puts
   puts
 end
 
-def install_exa
+def install_node
   puts
   puts "======================================================"
-  puts "Installing Exa instead of ls"
+  puts "Installing node"
   puts "======================================================"
-  run %{git clone https://github.com/ogham/exa.git ~/code/exa/}
-  run %{cd ~/code/exa/ && cargo build}
+  run %{nvm install 5}
+  run %{nvm alias default node}
   puts
   puts
 end
