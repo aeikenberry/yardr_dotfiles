@@ -27,5 +27,5 @@ else
   end
 endif
 
-colorscheme solarized
-set background=dark
+colorscheme gruvbox
+# set background=dark
