@@ -28,4 +28,3 @@ else
 endif
 
 colorscheme gruvbox
-set background=dark
