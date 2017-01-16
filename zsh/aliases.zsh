@@ -222,3 +222,8 @@ alias dbmu='spring rake db:migrate:up'
 
 # Homebrew
 alias brewu='brew update  && brew upgrade --all && brew cleanup && brew prune && brew doctor'
+
+# Docker
+alias dcup='docker-compose up -d'
+alias dcb='docker-compose build'
+alias dcl='docker-compose logs -f'
