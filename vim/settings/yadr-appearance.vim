@@ -25,5 +25,4 @@ else
   let g:solarized_termtrans=1
 endif
 
-" colorscheme nord-vim
 set background=dark
